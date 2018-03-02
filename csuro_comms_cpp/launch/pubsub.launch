@@ -1,0 +1,4 @@
+<launch>
+	<node pkg="csuro_comms_cpp" type="nodo_point_pub" name="Publisher" output="screen"/>
+	<node pkg="csuro_comms_cpp" type="nodo_point_sub" name="Subscriber" output="screen"/> 
+</launch>

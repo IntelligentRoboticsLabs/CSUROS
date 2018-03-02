@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="2.24"/>
+  <!-- interface-naming-policy project-wide -->
+  <object class="GtkWindow" id="window">
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkFixed" id="fixed1">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <object class="GtkLabel" id="label_hmax">
+            <property name="width_request">100</property>
+            <property name="height_request">30</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">H Max</property>
+          </object>
+          <packing>
+            <property name="x">4</property>
+            <property name="y">20</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkHScale" id="Hscale">
+            <property name="width_request">300</property>
+            <property name="height_request">50</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="events">GDK_BUTTON1_MOTION_MASK | GDK_STRUCTURE_MASK | GDK_SCROLL_MASK</property>
+            <property name="round_digits">1</property>
+          </object>
+          <packing>
+            <property name="x">93</property>
+            <property name="y">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label_hmin">
+            <property name="width_request">100</property>
+            <property name="height_request">30</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">H Min</property>
+          </object>
+          <packing>
+            <property name="x">4</property>
+            <property name="y">80</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkHScale" id="hscale">
+            <property name="width_request">300</property>
+            <property name="height_request">50</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="events">GDK_BUTTON1_MOTION_MASK | GDK_STRUCTURE_MASK | GDK_SCROLL_MASK</property>
+            <property name="round_digits">1</property>
+          </object>
+          <packing>
+            <property name="x">93</property>
+            <property name="y">63</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkHScale" id="Sscale">
+            <property name="width_request">300</property>
+            <property name="height_request">50</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="round_digits">1</property>
+          </object>
+          <packing>
+            <property name="x">93</property>
+            <property name="y">123</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label1">
+            <property name="width_request">100</property>
+            <property name="height_request">30</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">S Max</property>
+          </object>
+          <packing>
+            <property name="x">4</property>
+            <property name="y">141</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

@@ -1,0 +1,6 @@
+ <library path="lib/libcsuro_global_planner_lib">
+  <class name="csuro_global_planner/CSUROGlobalPlanner" type="csuro_global_planner::CSUROGlobalPlanner" base_class_type="nav_core::BaseGlobalPlanner">
+    <description>This is a global planner plugin for csuros course.</description>
+  </class>
+ </library>
+ 
