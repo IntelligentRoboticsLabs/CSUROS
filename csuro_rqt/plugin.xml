@@ -1,0 +1,20 @@
+<library path="lib/libtwist_cmd">
+  <class name="twist_cmd" type="twist_cmd::TwistCmd" base_class_type="rqt_gui_cpp::Plugin">
+    <description>
+      rqt Twist Cmd
+    </description>
+    <qtgui>
+      <!-- optional grouping...
+      <group>
+        <label>Group</label>
+      </group>
+      <group>
+        <label>Subgroup</label>
+      </group>
+      -->
+      <label>Twist Cmd</label>
+      <icon type="theme">applications-utilities</icon>
+      <statustip>Twist Commander.</statustip>
+    </qtgui>
+  </class>
+</library>
