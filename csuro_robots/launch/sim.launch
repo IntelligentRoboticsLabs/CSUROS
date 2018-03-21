@@ -1,7 +1,7 @@
 
 <launch>
 
-  <arg name="world_name" default="$(find csuro_robots)/worlds/montmelo.world"/>
+  <arg name="world_name" default="$(find csuro_robots)/worlds/GrannyAnnie.world"/>
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="use_sim_time" value="true"/>
