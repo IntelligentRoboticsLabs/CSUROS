@@ -42,13 +42,13 @@ void sensorAction(int TriggerPin, int EchoPin){
 	distanceCm = int(0.017*duration);   //convertimos a distancia, en cm
   distance.data = distanceCm;
   if(distanceCm < minDistance){
-    vel = 0.5;
+    vel = 0.2;
 		velrot = 0.0;
 		velocity.linear.x = vel;
 		velocity.angular.z = velrot;
 		velocity_publisher.publish(&velocity);		//le pasamos vel y lo publicamos
   }
-  //distance_publisher.publish(&distance);
+  distance_publisher.publish(&distance);
 }
 
 void setup()
