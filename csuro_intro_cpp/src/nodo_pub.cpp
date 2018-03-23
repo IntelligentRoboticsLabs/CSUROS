@@ -1,30 +1,33 @@
-#include "ros/ros.h"
-#include "std_msgs/Int64.h"
+#include "rclcpp/rclcpp.hpp"
+#include <chrono>
+#include "std_msgs/msg/int64.hpp"
+
+using namespace std::chrono_literals;
 
 int main(int argc, char **argv)
 {
 
-   ros::init(argc, argv, "num_publisher");
-   ros::NodeHandle n;
+    rclcpp::init(argc, argv);
+    auto node = rclcpp::Node::make_shared("num_publisher");
+    auto publisher = node->create_publisher<std_msgs::msg::Int64>("topic");
+    auto message = std::make_shared<std_msgs::msg::Int64>();
 
-   ros::Publisher num_pub = n.advertise<std_msgs::Int64>("/message", 1);
+    int count=0;
 
-   ros::Rate loop_rate(10);
+    rclcpp::WallRate loop_rate(50ms);
 
-   int count=0;
+    while (rclcpp::ok())
+    {
+        message->data = count++;
 
-   while (ros::ok())
-   {
+        publisher->publish(message);
 
-     std_msgs::Int64 msg;
-     msg.data = count++;
+        rclcpp::spin_some(node);
+        loop_rate.sleep();
+    }
 
-     num_pub.publish(msg);
+    rclcpp::shutdown();
 
-     ros::spinOnce();
-     loop_rate.sleep();
-   }
-
-   return 0;
+    return 0;
 
  }

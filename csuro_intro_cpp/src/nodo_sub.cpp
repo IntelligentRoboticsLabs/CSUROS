@@ -1,29 +1,26 @@
-#include "ros/ros.h"
-#include "std_msgs/Int64.h"
+#include "rclcpp/rclcpp.hpp"
+#include "std_msgs/msg/int64.hpp"
 
+rclcpp::Node::SharedPtr g_node = nullptr;
 
-void messageCallback(const std_msgs::Int64::ConstPtr& msg)
+void messageCallback(const std_msgs::msg::Int64::SharedPtr msg)
 {
-  ROS_INFO("Data: [%ld]", msg->data);
-
+  RCLCPP_INFO(g_node->get_logger(), "Data: '%ld'", msg->data);
 }
 
-int main(int argc, char **argv)
+int main(int argc, char * argv[])
 {
+  rclcpp::init(argc, argv);
 
-   ros::init(argc, argv, "num_subscriber");
-   ros::NodeHandle n;
+  g_node = rclcpp::Node::make_shared("num_subscriber");
 
-   ros::Subscriber sub = n.subscribe("/message", 1, messageCallback);
+  auto subscription = g_node->create_subscription<std_msgs::msg::Int64>
+    ("topic", messageCallback);
 
-   ros::Rate loop_rate(10);
+  rclcpp::spin(g_node);
+  rclcpp::shutdown();
 
-   while (ros::ok())
-   {
-     ros::spinOnce();
-     loop_rate.sleep();
-   }
+  g_node = nullptr;
 
-   return 0;
-
- }
+  return 0;
+}

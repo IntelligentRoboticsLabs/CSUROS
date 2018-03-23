@@ -1,29 +1,44 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.5)
+
 project(csuro_intro_cpp)
 
-find_package(catkin REQUIRED COMPONENTS
-  roscpp
-  std_msgs
-)
+# Default to C++14
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 14)
+endif()
 
-catkin_package(
-CATKIN_DEPENDS roscpp std_msgs
-)
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
 
-include_directories(
-  ${catkin_INCLUDE_DIRS}
-)
+find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(rcutils)
+find_package(rmw REQUIRED)
+find_package(std_msgs REQUIRED)
 
 add_executable(nodo_simple src/nodo_simple.cpp)
-add_executable(nodo_iterativo src/nodo_iterativo.cpp)
-add_executable(nodo_sub src/nodo_sub.cpp)
-add_executable(nodo_pub src/nodo_pub.cpp)
-add_executable(nodo_sub_obj src/nodo_sub_obj.cpp)
-add_executable(nodo_sub_async src/nodo_sub_async.cpp)
+ament_target_dependencies(nodo_simple rclcpp rcutils std_msgs)
+install(TARGETS nodo_simple DESTINATION lib/csuro_intro_cpp)
 
-target_link_libraries(nodo_simple ${catkin_LIBRARIES})
-target_link_libraries(nodo_iterativo ${catkin_LIBRARIES})
-target_link_libraries(nodo_sub ${catkin_LIBRARIES})
-target_link_libraries(nodo_pub ${catkin_LIBRARIES})
-target_link_libraries(nodo_sub_obj ${catkin_LIBRARIES})
-target_link_libraries(nodo_sub_async ${catkin_LIBRARIES})
+add_executable(nodo_iterativo src/nodo_iterativo.cpp)
+ament_target_dependencies(nodo_iterativo rclcpp rcutils std_msgs)
+install(TARGETS nodo_iterativo DESTINATION lib/csuro_intro_cpp)
+
+add_executable(nodo_pub src/nodo_pub.cpp)
+ament_target_dependencies(nodo_pub rclcpp rcutils std_msgs)
+install(TARGETS nodo_pub DESTINATION lib/csuro_intro_cpp)
+
+add_executable(nodo_pub_qos src/nodo_pub_qos.cpp)
+ament_target_dependencies(nodo_pub_qos rclcpp rcutils std_msgs)
+install(TARGETS nodo_pub_qos DESTINATION lib/csuro_intro_cpp)
+
+add_executable(nodo_sub src/nodo_sub.cpp)
+ament_target_dependencies(nodo_sub rclcpp rcutils std_msgs)
+install(TARGETS nodo_sub DESTINATION lib/csuro_intro_cpp)
+
+add_executable(nodo_sub_obj src/nodo_sub_obj.cpp)
+ament_target_dependencies(nodo_sub_obj rclcpp rcutils std_msgs)
+install(TARGETS nodo_sub_obj DESTINATION lib/csuro_intro_cpp)
+
+ament_package()

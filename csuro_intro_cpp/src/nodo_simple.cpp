@@ -1,11 +1,12 @@
-#include "ros/ros.h"
+#include "rclcpp/rclcpp.hpp"
 
 int main(int argc, char **argv)
 {
-   ros::init(argc, argv, "simple");
-   ros::NodeHandle n;
+   rclcpp::init(argc, argv);
 
-   ros::spin();
-   
+   rclcpp::spin(std::make_shared<rclcpp::Node>("simple"));
+
+   rclcpp::shutdown();
+
    return 0;
  }

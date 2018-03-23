@@ -1,34 +1,37 @@
-#include "ros/ros.h"
-#include "std_msgs/Int64.h"
+#include "rclcpp/rclcpp.hpp"
+#include "std_msgs/msg/int64.hpp"
 
-class Listener
+using std::placeholders::_1;
+
+class Listener : public rclcpp::Node
 {
 public:
-	Listener(): n_()
+	Listener(): Node("num_subscriber")
 	{
-		sub_ = n_.subscribe("message", 1, &Listener::messageCallback, this);
+        sub_ = create_subscription<std_msgs::msg::Int64>("topic",
+            std::bind(&Listener::messageCallback, this, _1));
 	}
 
-	void messageCallback(const std_msgs::Int64::ConstPtr& msg)
+	void messageCallback(const std_msgs::msg::Int64::SharedPtr msg)
 	{
-		ROS_INFO("Message: [%ld]", msg->data);
+		 RCLCPP_INFO(this->get_logger(), "Data: '%ld'", msg->data);
 	}
 
 private:
-	ros::NodeHandle n_;
-	ros::Subscriber sub_;
+    rclcpp::Subscription<std_msgs::msg::Int64>::SharedPtr sub_;
+
 };
 
 int main(int argc, char **argv)
 {
 
-   ros::init(argc, argv, "num_subscriber");
-   ros::NodeHandle n;
+   rclcpp::init(argc, argv);
 
-   Listener listener;
+   auto node = std::make_shared<Listener>();
 
-   ros::spin();
+   rclcpp::spin(node);
 
+   rclcpp::shutdown();
    return 0;
 
  }
