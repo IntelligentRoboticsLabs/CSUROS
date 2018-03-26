@@ -1,0 +1,62 @@
+
+IMAGEN DE LA RASPBERRY -- http://www.german-robot.com/2016/05/26/raspberry-pi-sd-card-image/
+
+INSTALAR ROS_SERIAL -- http://wiki.ros.org/rosserial
+
+Para el código de Arduino:
+COMPILAR.
+  catkin_make csuro_arduino_firmware_hello
+UPLOAD:
+  catkin_make csuro_arduino_firmware_hello-upload
+
+
+EJECUTAR:
+  1. roscore
+  2. rosrun rosserial_python serial_node.py /dev/ttyACM0
+
+CONEXIONES Ultrasonido
+azul 5
+blanco 6
+verde 5v
+gris gnd
+
+-----------------------------------------
+
+pi-desktop -- 192.168.1.68
+
+-----------------------------------------
+
+configurar en raspberry --
+  sudo nano /etc/hosts
+    ip -- hostnameRemoto (ip del ordenador)
+
+configurar en pc
+  sudo nano /etc/hosts
+    ip-raspb hostname-raspberry
+
+  CONFIGURACION DE LAS VARIABLES DE ENTORNO
+    export ROS_IP=  #IP_DEL_PC
+    export ROS_HOSTNAME= #NOMBRE_DE_MAQUINA
+    export ROS_MASTER_URI=http://[NOMBRE_MAQUINA_RASPBERRY]:11311
+
+
+
+- Prestaciones cámara 2D y cámara 3D respecto al pc.
+  Comando para medir el bandwith: rostopic bw /topic_name
+
+  COMPARACIONES DE RENDIMIENTO
+    CONEXIONES: pc
+      topic /camera/rgb/image_raw lanzado en pc y monitorizado desde pc --> 26MB/s
+      topic /camera/depth_registered/points lanzado en pc y monitorizado pc --> 300MB/s
+
+    CONEXIONES: rasp2
+      topic /camera/rgb/image_raw lanzado en RASP y monitorizado desde rasp --> 6MB/s
+      topic /camera/depth_registered/points lanzado en RASP y monitorizado rasp --> 32MB/s
+
+    CONEXIONES: rasp3
+      topic /camera/rgb/image_raw lanzado en RASP y monitorizado desde rasp --> 7MB/s
+      topic /camera/depth_registered/points lanzado en RASP y monitorizado rasp --> 43MB/s
+
+    CONEXIONES: rasp - cable - router - wifi - pc
+      topic /camera/rgb/image_raw lanzado en RASP y monitorizado desde PC --> 5MB/s
+      topic /camera/depth_registered/points lanzado en RASP y monitorizado desde PC --> 3MB/s
