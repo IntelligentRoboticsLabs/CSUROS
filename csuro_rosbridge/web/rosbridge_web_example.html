@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <script type="text/javascript" src="http://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+  <script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+  <script type="text/javascript" type="text/javascript">
+
+    // Connecting to ROS
+    var ros = new ROSLIB.Ros({
+      url : 'ws://192.168.1.68:9090'
+    });
+
+    ros.on('connection', function() {
+      console.log('Connected to websocket server.');
+    });
+
+    ros.on('error', function(error) {
+      console.log('Error connecting to websocket server: ', error);
+    });
+
+    ros.on('close', function() {
+      console.log('Connection to websocket server closed.');
+    });
+
+    // Publishing a Topic
+    var cmdVel = new ROSLIB.Topic({
+      ros : ros,
+      name : '/mobile_base/commands/velocity',
+      messageType : 'geometry_msgs/Twist'
+    });
+
+    function navigationForward(){
+      var twist = new ROSLIB.Message({
+        linear : {
+          x : 0.1,
+          y : 0.0,
+          z : 0.0
+        },
+        angular : {
+          x : 0.0,
+          y : 0.0,
+          z : 0.0
+        }
+      });
+      cmdVel.publish(twist);
+    }
+
+    function navigationBack(){
+      var twist = new ROSLIB.Message({
+        linear : {
+          x : -0.1,
+          y : 0.0,
+          z : 0.0
+        },
+        angular : {
+          x : 0.0,
+          y : 0.0,
+          z : 0.0
+        }
+      });
+      cmdVel.publish(twist);
+    }
+
+    function navigationRight(){
+      var twist = new ROSLIB.Message({
+        linear : {
+          x : 0.0,
+          y : 0.0,
+          z : 0.0
+        },
+        angular : {
+          x : 0.0,
+          y : 0.0,
+          z : -1.0
+        }
+      });
+      cmdVel.publish(twist);
+    }
+
+    function navigationLeft(){
+      var twist = new ROSLIB.Message({
+        linear : {
+          x : 0.0,
+          y : 0.0,
+          z : 0.0
+        },
+        angular : {
+          x : 0.0,
+          y : 0.0,
+          z : 1.0
+        }
+      });
+      cmdVel.publish(twist);
+    }
+  </script>
+</head>
+
+<body>
+  <h1>Simple roslib Example</h1>
+    <img style="position:absolute; width:15%; top: 10%; left:40%" src="img/up.png" onclick="navigationForward()"/>
+    <img style="position:absolute; width:15%; top: 30%; left:20%" src="img/left.png" onclick="navigationLeft()"/>
+    <img style="position:absolute; width:15%; top: 30%; left:60%" src="img/right.png" onclick="navigationRight()"/>
+    <img style="position:absolute; width:15%; top: 50%; left:40%" src="img/down.png" onclick="navigationBack()"/>
+</body>
+</html>
