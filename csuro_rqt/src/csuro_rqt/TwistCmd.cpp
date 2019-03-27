@@ -98,4 +98,4 @@ void TwistCmd::loop()
 
 
 } // namespace
-PLUGINLIB_DECLARE_CLASS(twist_cmd, TwistCmd, twist_cmd::TwistCmd, rqt_gui_cpp::Plugin)
+PLUGINLIB_EXPORT_CLASS(twist_cmd::TwistCmd, rqt_gui_cpp::Plugin)
