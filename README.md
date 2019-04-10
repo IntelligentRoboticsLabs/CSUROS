@@ -16,8 +16,11 @@ Provide code examples and explanations of how to get the project.
 
 To add:
   sudo apt-get install ros-melodic-ar-track-alvar*
+  
   sudo apt-get install ros-melodic-yocs-msgs
+ 
   sudo apt-get install ros-melodic-tf2-bullet
+  
   sudo apt-get install ros-melodic-navigation*
 
 ## API Reference
