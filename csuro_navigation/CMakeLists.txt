@@ -21,6 +21,10 @@ include_directories(include)
 include_directories(
   ${catkin_INCLUDE_DIRS}
 )
-add_library(csuro_global_planner_lib 
+add_library(csuro_global_planner_lib
 	src/csuro_global_planner.cpp
 )
+
+add_executable(navigate_to_wp_node src/navigate_to_wp.cpp)
+add_dependencies(navigate_to_wp_node ${catkin_EXPORTED_TARGETS} )
+target_link_libraries(navigate_to_wp_node ${catkin_LIBRARIES} )
