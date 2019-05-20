@@ -38,6 +38,7 @@
 #include "actionlib/client/simple_action_client.h"
 #include "move_base_msgs/MoveBaseAction.h"
 #include "geometry_msgs/PoseStamped.h"
+#include "std_msgs/Empty.h"
 #include <string>
 
 namespace csuro_navigation
@@ -48,6 +49,7 @@ class Navigator
     Navigator(ros::NodeHandle& nh) : nh_(nh), action_client_("/move_base", false), goal_sended_(false)
     {
       wp_sub_ = nh_.subscribe("/navigate_to", 1, &Navigator::navigateCallback, this);
+      wp_reached_pub_ = nh_.advertise<std_msgs::Empty>("/navigate_to/goal_reached", 1);
     }
 
     void navigateCallback(geometry_msgs::PoseStamped goal_pose_)
@@ -71,7 +73,11 @@ class Navigator
         {
           actionlib::SimpleClientGoalState state = action_client_.getState();
           if (state == actionlib::SimpleClientGoalState::SUCCEEDED)
+          {
+            std_msgs::Empty msg;
             ROS_INFO("[navigate_to_wp] Goal Reached!");
+            wp_reached_pub_.publish(msg);
+          }
           else
             ROS_INFO("[navigate_to_wp] Something bad happened!");
           goal_sended_ = false;
@@ -82,6 +88,7 @@ class Navigator
   private:
     ros::NodeHandle nh_;
     ros::Subscriber wp_sub_;
+    ros::Publisher wp_reached_pub_;
     bool goal_sended_;
     actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> action_client_;
 
