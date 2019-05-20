@@ -16,5 +16,6 @@
     args="0 0.0 0.41 3.14 3.14 0 base_footprint laser 100"/>
 
   <include file="$(find csuro_navigation)/launch/navigation.launch"/>
-
+  <node name="soundplay_node" pkg="sound_play" type="soundplay_node.py" output="screen"/>
+  
 </launch>
