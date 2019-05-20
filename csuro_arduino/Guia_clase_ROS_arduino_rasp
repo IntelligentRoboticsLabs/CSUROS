@@ -15,10 +15,10 @@ EJECUTAR:
   2. rosrun rosserial_python serial_node.py /dev/ttyACM0
 
 CONEXIONES Ultrasonido
-azul 5
-blanco 6
-verde 5v
-gris gnd
+azul 5 -- Echo
+blanco 6 -- Trig
+rojo 5v -- Vcc
+negro gnd -- Gnd
 
 -----------------------------------------
 

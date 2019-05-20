@@ -55,7 +55,7 @@ class Navigator
       ROS_INFO("[navigate_to_wp] Commanding to (%f %f)", goal_pose_.pose.position.x, goal_pose_.pose.position.y);
       move_base_msgs::MoveBaseGoal goal;
       goal.target_pose = goal_pose_;
-      goal.target_pose.header.frame_id = "/map";
+      goal.target_pose.header.frame_id = "map";
       goal.target_pose.header.stamp = ros::Time::now();
       action_client_.sendGoal(goal);
       goal_sended_ = true;
@@ -93,10 +93,13 @@ int main(int argc, char** argv)
   ros::init(argc, argv, "navigate_to_wp_node");
   ros::NodeHandle nh("~");
   csuro_navigation::Navigator navigator(nh);
+  ros::Rate loop_rate(5);
+
   while (ros::ok())
   {
     navigator.step();
     ros::spinOnce();
+    loop_rate.sleep();
   }
   return 0;
 }

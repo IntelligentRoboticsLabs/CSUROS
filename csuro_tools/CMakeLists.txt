@@ -57,9 +57,12 @@ add_executable(nodo_test_scan
   src/Scan.cpp
   src/nodo_test_scan.cpp
 )
-
+add_executable(image_publisher
+	src/image_publisher_from_disk.cpp
+)
 
 target_link_libraries(csurotools ${catkin_LIBRARIES})
 target_link_libraries(nodo_hsv_tuner_2d ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} )
 target_link_libraries(nodo_markers ${catkin_LIBRARIES})
 target_link_libraries(nodo_test_scan ${catkin_LIBRARIES})
+target_link_libraries(image_publisher ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} )
