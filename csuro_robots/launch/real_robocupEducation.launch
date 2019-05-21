@@ -11,11 +11,11 @@
   </node>
 
   <node pkg="tf" type="static_transform_publisher" name="bf2camera"
-    args="0.11 0.0 0.2 0 0 0 base_footprint camera_link 100"/>
+    args="0.14 0.0 0.63 0 0 0 base_footprint camera_link 100"/>
   <node pkg="tf" type="static_transform_publisher" name="bf2laser"
     args="0 0.0 0.41 3.14 3.14 0 base_footprint laser 100"/>
 
   <include file="$(find csuro_navigation)/launch/navigation.launch"/>
   <node name="soundplay_node" pkg="sound_play" type="soundplay_node.py" output="screen"/>
-  
+  <node name="navigate_to_wp_node" pkg="csuro_navigation" type="navigate_to_wp_node" output="screen"/>
 </launch>
