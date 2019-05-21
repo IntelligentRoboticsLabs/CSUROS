@@ -2,20 +2,26 @@
 
  <arg name="custom_param_file" default="$(find turtlebot_navigation)/param/dummy.yaml"/>
   <!-- Map server -->
-  <arg name="map_file" default="$(find csuro_navigation)/maps/static_map.yaml"/>
-  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+  <!--<arg name="map_file" default="$(find csuro_navigation)/maps/home2/map.yaml"/>--> <!--FICHERO DONDE ESTA EL MAPA -->
+  <!--<arg name="map_file" default="$(find csuro_navigation)/mymaps/home4/map.yaml"/> -->
+  <arg name="map_file" default="$(find csuro_navigation)/mymaps/map.yaml"/>
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" /> <!--NODO QUE CARGA EL MAPA DE FICHERO -->
 
-  <arg name="initial_pose_x" default="7.170"/>
-  <arg name="initial_pose_y" default="28.732"/>
-  <arg name="initial_pose_a" default="2.760"/>
-  <include file="$(find csuro_navigation)/launch/includes/amcl.launch.xml">
+<!--MIRAR EN EL TERMINAL DONDE ESTA EL ROBOT EN RVIZ -->
+  <arg name="initial_pose_x" default="0.0"/>  <!--PAREMETRO DE POSCION INICIAL X -->
+  <arg name="initial_pose_y" default="0.0"/>  <!--PAREMETRO DE POSCION INICIAL Y -->
+  <arg name="initial_pose_a" default="0.0"/>  <!--PAREMETRO DE POSCION INICIAL GIIRO RESPECTO AL CERO -->
+  <include file="$(find csuro_navigation)/launch/includes/amcl.launch.xml"> <!--LANZAR LA LOCALIZACION, DONDE ESTA EL ROBOT EN EL MAPA -->
     <arg name="initial_pose_x" value="$(arg initial_pose_x)"/>
     <arg name="initial_pose_y" value="$(arg initial_pose_y)"/>
     <arg name="initial_pose_a" value="$(arg initial_pose_a)"/>
   </include>
-
+<!--NODOS DE NAVEGACION -->
   <include file="$(find csuro_navigation)/launch/includes/move_base.launch.xml">
     <arg name="custom_param_file" value="$(arg custom_param_file)"/>
   </include>
+
+<!-- [ INFO] [1558343121.671763839]: Setting goal: Frame:map, Position(0,798, 2,283, 0,000), Orientation(0,000, 0,000, 0,694, 0,720) = Angle: 1,533
+-->
 
 </launch>
