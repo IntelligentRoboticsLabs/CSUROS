@@ -1,0 +1,3 @@
+export ROS_IP=192.168.1.76 	#YOUR IP
+export ROS_HOSTNAME=jgines-HP-URJC 	#YOUR MACHINE
+export ROS_MASTER_URI=http://kobukiB:11311
